@@ -1,5 +1,5 @@
 import { User } from '../models';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Utils, ResponseMessage } from 'utils';
 require('dotenv').config();
 
