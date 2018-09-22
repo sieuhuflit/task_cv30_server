@@ -1,1 +1,0 @@
-# task_cv30_server
