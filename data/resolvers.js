@@ -6,6 +6,14 @@ require('dotenv').config();
 const resolvers = {
   Mutation: {
     async register(_, { firstName, lastName, email, password }) {
+      const isMissingInfo =
+        Utils.isNullOrEmpty(firstName) ||
+        Utils.isNullOrEmpty(lastName) ||
+        Utils.isNullOrEmpty(email) ||
+        Utils.isNullOrEmpty(password);
+      if (isMissingInfo) {
+        throw new Error(ResponseMessage.MESSAGE_MISSING_FILL_FULL_INFORMATION);
+      }
       const validEmail = Utils.validateEmail(email);
       if (!validEmail) {
         throw new Error(ResponseMessage.MESSAGE_INVALID_EMAIL);
@@ -24,6 +32,11 @@ const resolvers = {
     },
 
     async login(_, { email, password }) {
+      const isMissingInfo =
+        Utils.isNullOrEmpty(email) || Utils.isNullOrEmpty(password);
+      if (isMissingInfo) {
+        throw new Error(ResponseMessage.MESSAGE_MISSING_FILL_FULL_INFORMATION);
+      }
       const validEmail = Utils.validateEmail(email);
       if (!validEmail) {
         throw new Error(ResponseMessage.MESSAGE_INVALID_EMAIL);
