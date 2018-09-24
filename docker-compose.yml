@@ -1,0 +1,17 @@
+version: '2'
+services:
+  server:
+    build: ./server-service
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+    volumes:
+      - ./server-service:/usr/src/server
+  db:
+    build: ./database-service
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
